@@ -23,23 +23,23 @@ var plugin = function(omniscroll,options) {
 
   objectility.extendOwn(settings,options);
 
+  var delta;
+
+  var keycodes = {
+    '37': 'LEFT',
+    '38': 'UP',
+    '39': 'RIGHT',
+    '40': 'DOWN'
+  };
+
   function onEvent(e) {
+
+    var action;
+    if (!(action = keycodes[event.keyCode.toString()])) return;
 
     if (settings.preventDefault) {
       e.preventDefault();
     }
-
-    var delta;
-
-    var keycodes = {
-      '37': 'LEFT',
-      '38': 'UP',
-      '39': 'RIGHT',
-      '40': 'DOWN'
-    };
-
-    var action;
-    if (!(action = keycodes[event.keyCode.toString()])) return;
 
     switch(action) {
 
