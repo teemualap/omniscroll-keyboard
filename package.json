@@ -23,7 +23,6 @@
   "author": "Teemu Alapoikela",
   "license": "MIT",
   "dependencies": {
-    "omniscroll": "~0.1.0",
     "objectility": "~0.0.1"
   }
 }
