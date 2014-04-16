@@ -17,13 +17,13 @@ var keyboard = {
 var plugin = function(omniscroll,options) {
 
   var settings = {
-    keyboardFactor: 10,
+    keyboardFactor: 1,
     preventDefault: true
   };
 
   objectility.extendOwn(settings,options);
 
-  var delta;
+  var baseDelta = 30;
 
   var keycodes = {
     '37': 'LEFT',
@@ -41,23 +41,29 @@ var plugin = function(omniscroll,options) {
       e.preventDefault();
     }
 
+    var delta = baseDelta;
+
+    //left and right affect the same data as well. this is to be changed.
     switch(action) {
 
       case 'LEFT':
-        delta = -settings.keyboardFactor;
+        delta *= -settings.keyboardFactor;
         break;
       case 'RIGHT':
-        delta = settings.keyboardFactor;
+        delta *= settings.keyboardFactor;
         break;
       case 'UP':
-        delta = -settings.keyboardFactor;
+        delta *= -settings.keyboardFactor;
         break;
       case 'DOWN':
-        delta = settings.keyboardFactor;
+        delta *= settings.keyboardFactor;
         break;
     }
 
-    omniscroll.consume(delta,source);
+    if ( delta > 1 || delta < -1) {
+      omniscroll.consume(delta,source);
+    }
+    
   }
 
   //exposed interface
