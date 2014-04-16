@@ -1,6 +1,6 @@
 {
   "name": "omniscroll-keyboard",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "An omniscroll plugin for delta values coming from a KeyboardEvent",
   "main": "index.js",
   "scripts": {
