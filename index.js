@@ -1,58 +1,77 @@
-(function(factory){
-  if ( typeof define === 'function' && define.amd ) {
-    // AMD. Register as an anonymous module.
-    define([], factory());
-  } else if (typeof exports === 'object') {
-    // Node/CommonJS
-    module.exports = factory();
-  } else {
-    // Browser globals
-    window.omniscrollKeyboard = factory();
+var objectility = require('../objectility');
+
+//the name of your plugin
+var pluginName = 'omniscroll-keyboard';
+var source = 'keyboard';
+
+var keyboard = {
+  on: function(elem,cb){
+    elem.addEventListener('keydown',cb);
+  },
+  off: function(elem,cb){
+    elem.removeEventListener('keydown',cb);
   }
-}
-(function(){
+};
 
-  var pluginName = 'omniscroll-keyboard';
+//the plugin constructor
+var plugin = function(omniscroll,options) {
 
-  var plugin = function(event,deltaObj) {
-
-    //the event originated from a keyboard
-    if (event instanceof KeyboardEvent) {
-
-      var baseDelta = 4;
-
-      var keycodes = {
-        '37': 'LEFT',
-        '38': 'UP',
-        '39': 'RIGHT',
-        '40': 'DOWN'
-      };
-
-      var action;
-      if (!(action = keycodes[event.keyCode.toString()])) return;
-
-      switch(action) {
-
-        case 'LEFT':
-          deltaObj.x = -baseDelta;
-          break;
-        case 'RIGHT':
-          deltaObj.x = baseDelta;
-          break;
-        case 'UP':
-          deltaObj.y = -baseDelta;
-          break;
-        case 'DOWN':
-          deltaObj.y = baseDelta;
-          break;
-      }
-
-    }
-
-  });
-
-  return function(omniscroll) {
-    return omniscroll.plugin(pluginName,plugin);
+  var settings = {
+    keyboardFactor: 10,
+    preventDefault: true
   };
 
-}));
+  objectility.extendOwn(settings,options);
+
+  function onEvent(e) {
+
+    if (settings.preventDefault) {
+      e.preventDefault();
+    }
+
+    var delta;
+
+    var keycodes = {
+      '37': 'LEFT',
+      '38': 'UP',
+      '39': 'RIGHT',
+      '40': 'DOWN'
+    };
+
+    var action;
+    if (!(action = keycodes[event.keyCode.toString()])) return;
+
+    switch(action) {
+
+      case 'LEFT':
+        delta = -settings.keyboardFactor;
+        break;
+      case 'RIGHT':
+        delta = settings.keyboardFactor;
+        break;
+      case 'UP':
+        delta = -settings.keyboardFactor;
+        break;
+      case 'DOWN':
+        delta = settings.keyboardFactor;
+        break;
+    }
+
+    omniscroll.consume(delta,source);
+  }
+
+  //exposed interface
+  return {
+    bind: function(element) {
+      keyboard.on(element,onEvent);
+    },
+    unbind: function(element) {
+      keyboard.off(element,onEvent);
+    }
+  }
+
+};
+
+module.exports = function(omniscroll,options) {
+  return omniscroll.plugin(pluginName,plugin(omniscroll,options));
+};

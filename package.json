@@ -1,10 +1,14 @@
 {
   "name": "omniscroll-keyboard",
-  "version": "0.0.1",
-  "description": "An omniscroll plugin to calculate delta values based on a KeyboardEvent",
+  "version": "0.0.2",
+  "description": "An omniscroll plugin for delta values coming from a KeyboardEvent",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:teemualap/omniscroll-keyboard.git"
   },
   "keywords": [
     "omniscroll",
@@ -12,9 +16,14 @@
     "keyboard",
     "scroll"
   ],
+  "bugs": {
+    "url": "https://github.com/teemualap/omniscroll-keyboard/issues"
+  },
+  "homepage": "https://github.com/teemualap/omniscroll-keyboard",
   "author": "Teemu Alapoikela",
   "license": "MIT",
   "dependencies": {
-    "omniscroll": "~0.0.0"
+    "omniscroll": "~0.1.0",
+    "objectility": "~0.0.1"
   }
 }

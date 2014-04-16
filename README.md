@@ -1,13 +1,6 @@
 Omniscroll-keyboard
 ===================
 
-An omniscroll plugin to calculate delta values based on a KeyboardEvent.
+An omniscroll plugin for delta values coming from a KeyboardEvent. Included in omniscroll as a default.
 
-	var omniscroll = require('omniscroll');
-	var omniscrollKeyboard = require('omniscroll-keyboard')(omniscroll);
-
-	function keydownHandler(e) {
-		var values = omniscroll(e,'omniscroll-keyboard');
-	}
-
-	document.addEventListener('keydown',keydownHandler);
+For more info and usage, refer to https://github.com/teemualap/omniscroll
